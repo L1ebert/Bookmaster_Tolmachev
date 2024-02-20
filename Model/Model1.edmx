@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Bookmaster_ТолмачевModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Authorld" />
+          </Key>
+          <Property Name="Authorld" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Bio" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BirhtDate" Type="date" />
+          <Property Name="DeathDate" Type="date" />
+          <Property Name="Wikipedia" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Bookid" />
+          </Key>
+          <Property Name="Bookid" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Subttle" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FirstPublicDate" Type="date" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookAuthor">
+          <Key>
+            <PropertyRef Name="BookAuthorid" />
+          </Key>
+          <Property Name="BookAuthorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bookid" Type="int" Nullable="false" />
+          <Property Name="Authorld" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookCover">
+          <Key>
+            <PropertyRef Name="BookCover" />
+          </Key>
+          <Property Name="BookCover" Type="int" Nullable="false" />
+          <Property Name="Bookid" Type="int" Nullable="false" />
+          <Property Name="Coverid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookSubject">
+          <Key>
+            <PropertyRef Name="BookSubject" />
+          </Key>
+          <Property Name="BookSubject" Type="int" Nullable="false" />
+          <Property Name="Bookid" Type="int" Nullable="false" />
+          <Property Name="Subjectld" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cover">
+          <Key>
+            <PropertyRef Name="Coverld" />
+          </Key>
+          <Property Name="Coverld" Type="int" Nullable="false" />
+          <Property Name="CoverFile" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Custumer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Subjectld" />
+          </Key>
+          <Property Name="Subjectld" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookAuthor_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Authorld" />
+            </Principal>
+            <Dependent Role="BookAuthor">
+              <PropertyRef Name="Authorld" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookAuthor_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookAuthor">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookCover_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookCover" Type="Self.BookCover" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookCover">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookCover_Cover">
+          <End Role="Cover" Type="Self.Cover" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookCover" Type="Self.BookCover" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cover">
+              <PropertyRef Name="Coverld" />
+            </Principal>
+            <Dependent Role="BookCover">
+              <PropertyRef Name="Coverid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookSubject_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookSubject" Type="Self.BookSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookSubject">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookSubject_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="BookSubject" Type="Self.BookSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Subjectld" />
+            </Principal>
+            <Dependent Role="BookSubject">
+              <PropertyRef Name="Subjectld" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Bookmaster_ТолмачевModelContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookAuthor" EntityType="Self.BookAuthor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookCover" EntityType="Self.BookCover" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookSubject" EntityType="Self.BookSubject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cover" EntityType="Self.Cover" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Custumer" EntityType="Self.Custumer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookAuthor_Author" Association="Self.FK_BookAuthor_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="BookAuthor" EntitySet="BookAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookAuthor_Book" Association="Self.FK_BookAuthor_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookAuthor" EntitySet="BookAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookCover_Book" Association="Self.FK_BookCover_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookCover" EntitySet="BookCover" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookCover_Cover" Association="Self.FK_BookCover_Cover">
+            <End Role="Cover" EntitySet="Cover" />
+            <End Role="BookCover" EntitySet="BookCover" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookSubject_Book" Association="Self.FK_BookSubject_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookSubject" EntitySet="BookSubject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookSubject_Subject" Association="Self.FK_BookSubject_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="BookSubject" EntitySet="BookSubject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Bookmaster_ТолмачевModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Authorld" />
+          </Key>
+          <Property Name="Authorld" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bio" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="BirhtDate" Type="DateTime" Precision="0" />
+          <Property Name="DeathDate" Type="DateTime" Precision="0" />
+          <Property Name="Wikipedia" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BookAuthor" Relationship="Self.FK_BookAuthor_Author" FromRole="Author" ToRole="BookAuthor" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Bookid" />
+          </Key>
+          <Property Name="Bookid" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Subttle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstPublicDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BookAuthor" Relationship="Self.FK_BookAuthor_Book" FromRole="Book" ToRole="BookAuthor" />
+          <NavigationProperty Name="BookCover" Relationship="Self.FK_BookCover_Book" FromRole="Book" ToRole="BookCover" />
+          <NavigationProperty Name="BookSubject" Relationship="Self.FK_BookSubject_Book" FromRole="Book" ToRole="BookSubject" />
+        </EntityType>
+        <EntityType Name="BookAuthor">
+          <Key>
+            <PropertyRef Name="BookAuthorid" />
+          </Key>
+          <Property Name="BookAuthorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bookid" Type="Int32" Nullable="false" />
+          <Property Name="Authorld" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Author" Relationship="Self.FK_BookAuthor_Author" FromRole="BookAuthor" ToRole="Author" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_BookAuthor_Book" FromRole="BookAuthor" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="BookCover">
+          <Key>
+            <PropertyRef Name="BookCover1" />
+          </Key>
+          <Property Name="BookCover1" Type="Int32" Nullable="false" />
+          <Property Name="Bookid" Type="Int32" Nullable="false" />
+          <Property Name="Coverid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_BookCover_Book" FromRole="BookCover" ToRole="Book" />
+          <NavigationProperty Name="Cover" Relationship="Self.FK_BookCover_Cover" FromRole="BookCover" ToRole="Cover" />
+        </EntityType>
+        <EntityType Name="BookSubject">
+          <Key>
+            <PropertyRef Name="BookSubject1" />
+          </Key>
+          <Property Name="BookSubject1" Type="Int32" Nullable="false" />
+          <Property Name="Bookid" Type="Int32" Nullable="false" />
+          <Property Name="Subjectld" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_BookSubject_Book" FromRole="BookSubject" ToRole="Book" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK_BookSubject_Subject" FromRole="BookSubject" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Cover">
+          <Key>
+            <PropertyRef Name="Coverld" />
+          </Key>
+          <Property Name="Coverld" Type="Int32" Nullable="false" />
+          <Property Name="CoverFile" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="BookCover" Relationship="Self.FK_BookCover_Cover" FromRole="Cover" ToRole="BookCover" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Subjectld" />
+          </Key>
+          <Property Name="Subjectld" Type="Int32" Nullable="false" />
+          <Property Name="Subject1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BookSubject" Relationship="Self.FK_BookSubject_Subject" FromRole="Subject" ToRole="BookSubject" />
+        </EntityType>
+        <Association Name="FK_BookAuthor_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Authorld" />
+            </Principal>
+            <Dependent Role="BookAuthor">
+              <PropertyRef Name="Authorld" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookAuthor_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookAuthor">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookCover_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookCover" Type="Self.BookCover" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookCover">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookSubject_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookSubject" Type="Self.BookSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookSubject">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookCover_Cover">
+          <End Role="Cover" Type="Self.Cover" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookCover" Type="Self.BookCover" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cover">
+              <PropertyRef Name="Coverld" />
+            </Principal>
+            <Dependent Role="BookCover">
+              <PropertyRef Name="Coverid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookSubject_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="BookSubject" Type="Self.BookSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Subjectld" />
+            </Principal>
+            <Dependent Role="BookSubject">
+              <PropertyRef Name="Subjectld" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Bookmaster_ТолмачевEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Author" EntityType="Self.Author" />
+          <EntitySet Name="Book" EntityType="Self.Book" />
+          <EntitySet Name="BookAuthor" EntityType="Self.BookAuthor" />
+          <EntitySet Name="BookCover" EntityType="Self.BookCover" />
+          <EntitySet Name="BookSubject" EntityType="Self.BookSubject" />
+          <EntitySet Name="Cover" EntityType="Self.Cover" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" />
+          <AssociationSet Name="FK_BookAuthor_Author" Association="Self.FK_BookAuthor_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="BookAuthor" EntitySet="BookAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookAuthor_Book" Association="Self.FK_BookAuthor_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookAuthor" EntitySet="BookAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookCover_Book" Association="Self.FK_BookCover_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookCover" EntitySet="BookCover" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookSubject_Book" Association="Self.FK_BookSubject_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookSubject" EntitySet="BookSubject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookCover_Cover" Association="Self.FK_BookCover_Cover">
+            <End Role="Cover" EntitySet="Cover" />
+            <End Role="BookCover" EntitySet="BookCover" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookSubject_Subject" Association="Self.FK_BookSubject_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="BookSubject" EntitySet="BookSubject" />
+          </AssociationSet>
+          <EntitySet Name="Custumer" EntityType="Bookmaster_ТолмачевModel.Custumer" />
+        </EntityContainer>
+        <EntityType Name="Custumer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Bookmaster_ТолмачевModelContainer" CdmEntityContainer="Bookmaster_ТолмачевEntities">
+          <EntitySetMapping Name="Author">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Authorld" ColumnName="Authorld" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="BirhtDate" ColumnName="BirhtDate" />
+                <ScalarProperty Name="DeathDate" ColumnName="DeathDate" />
+                <ScalarProperty Name="Wikipedia" ColumnName="Wikipedia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Bookid" ColumnName="Bookid" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Subttle" ColumnName="Subttle" />
+                <ScalarProperty Name="FirstPublicDate" ColumnName="FirstPublicDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookAuthor">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.BookAuthor">
+              <MappingFragment StoreEntitySet="BookAuthor">
+                <ScalarProperty Name="BookAuthorid" ColumnName="BookAuthorid" />
+                <ScalarProperty Name="Bookid" ColumnName="Bookid" />
+                <ScalarProperty Name="Authorld" ColumnName="Authorld" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookCover">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.BookCover">
+              <MappingFragment StoreEntitySet="BookCover">
+                <ScalarProperty Name="BookCover1" ColumnName="BookCover" />
+                <ScalarProperty Name="Bookid" ColumnName="Bookid" />
+                <ScalarProperty Name="Coverid" ColumnName="Coverid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookSubject">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.BookSubject">
+              <MappingFragment StoreEntitySet="BookSubject">
+                <ScalarProperty Name="BookSubject1" ColumnName="BookSubject" />
+                <ScalarProperty Name="Bookid" ColumnName="Bookid" />
+                <ScalarProperty Name="Subjectld" ColumnName="Subjectld" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cover">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.Cover">
+              <MappingFragment StoreEntitySet="Cover">
+                <ScalarProperty Name="Coverld" ColumnName="Coverld" />
+                <ScalarProperty Name="CoverFile" ColumnName="CoverFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subject">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Subjectld" ColumnName="Subjectld" />
+                <ScalarProperty Name="Subject1" ColumnName="Subject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Custumer">
+            <EntityTypeMapping TypeName="Bookmaster_ТолмачевModel.Custumer">
+              <MappingFragment StoreEntitySet="Custumer">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

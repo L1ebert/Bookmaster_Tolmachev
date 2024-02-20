@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="74a996aa3bad4c888d80cda8d0b56045" Name="Diagram1" ZoomLevel="95">
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.Author" Width="1.5" PointX="7" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.Book" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.BookAuthor" Width="1.5" PointX="4.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.BookCover" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.BookSubject" Width="1.5" PointX="1.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.Cover" Width="1.5" PointX="6.125" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.Subject" Width="1.5" PointX="4.125" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="Bookmaster_ТолмачевModel.FK_BookAuthor_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="Bookmaster_ТолмачевModel.FK_BookAuthor_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Bookmaster_ТолмачевModel.FK_BookCover_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Bookmaster_ТолмачевModel.FK_BookSubject_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Bookmaster_ТолмачевModel.FK_BookCover_Cover" ManuallyRouted="false" />
+        <AssociationConnector Association="Bookmaster_ТолмачевModel.FK_BookSubject_Subject" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Bookmaster_ТолмачевModel.Custumer" Width="1.5" PointX="9.25" PointY="3.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
